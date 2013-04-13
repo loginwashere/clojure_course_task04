@@ -1,6 +1,7 @@
 (ns lwh.board.handler
   (:use compojure.core)
-  (:require [compojure.handler :as handler]
+  (:require [org.httpkit.server :as server]
+            [compojure.handler :as handler]
             [compojure.route :as route]
             [lwh.board.model :as model]
             [lwh.board.view :as view]
@@ -8,6 +9,8 @@
             [noir.util.middleware :as noir]
             [noir.session :as session]
             ))
+
+(def env (into {} (System/getenv)))
 
 (defn show-article-list []
   (view/show-article-list (model/select-article)))
@@ -69,6 +72,9 @@
    noir/app-handler
    noir/war-handler
    ))
+
+(defn -main [& args]
+  (server/run-server app { :ip (env "HOST") :port (Integer/parseInt (env "PORT")) }))
 
 (comment
   ;; Function for inspecting java objects
