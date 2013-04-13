@@ -6,7 +6,7 @@
 
 (def env (into {} (System/getenv)))
 
-(let [uri (get env "OPENSHIFT_MONGODB_DB_URL" "mongodb://127.0.0.1/board")]
+(let [uri (str (get env "OPENSHIFT_MONGODB_DB_URL" "mongodb://127.0.0.1/") "board")]
     (monger.core/connect-via-uri! uri))
 
 (defn create-article [item]
