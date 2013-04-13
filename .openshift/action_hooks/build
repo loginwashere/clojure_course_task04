@@ -4,4 +4,4 @@
 # before the deploy step.  This script gets executed directly, so it
 # could be python, php, ruby, etc.
 
-sh start
+sh ./start
