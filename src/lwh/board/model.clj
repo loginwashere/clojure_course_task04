@@ -4,9 +4,9 @@
   (:import [org.bson.types ObjectId]
            [com.mongodb DB WriteConcern]))
 
-(def env (into {} (System/getenv)))
-
-(let [uri (str (get env "OPENSHIFT_MONGODB_DB_URL" "mongodb://127.0.0.1/") "board")]
+(let [env (into {} (System/getenv))
+      app-name (get env "OPENSHIFT_APP_NAME" "board")
+      uri (str (get env "OPENSHIFT_MONGODB_DB_URL" "mongodb://127.0.0.1/") app-name)]
     (monger.core/connect-via-uri! uri))
 
 (defn create-article [item]
