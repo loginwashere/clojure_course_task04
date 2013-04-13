@@ -4,15 +4,8 @@
   (:import [org.bson.types ObjectId]
            [com.mongodb DB WriteConcern]))
 
-(def env (into {} (System/getenv)))
-
-(def dbhost (get env "OPENSHIFT_MONGODB_DB_HOST"))
-(def dbport (get env "OPENSHIFT_MONGODB_DB_PORT"))
-
-;; localhost, default port
-(connect! (str "mongodb://" dbhost ":" dbport "/"))
-(set-db! (monger.core/get-db "board"))
-
+(let [uri (get (System/getenv) "OPENSHIFT_MONGODB_DB_URL" "mongodb://127.0.0.1/board")]
+    (monger.core/connect-via-uri! uri))
 
 (defn create-article [item]
   (insert "articles" item))
