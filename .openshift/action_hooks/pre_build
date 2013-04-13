@@ -4,4 +4,4 @@
 # before the build step.  This script gets executed directly, so it
 # could be python, php, ruby, etc.
 
-sh ./stop
+sh $OPENSHIFT_REPO_DIR/.openshift/action_hooks/stop
