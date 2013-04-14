@@ -25,7 +25,7 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="#">Imageboard</a>
+                    <a class="brand" href="/boards">Imageboard</a>
                     <div class="nav-collapse collapse">
                       <ul class="nav">
                           <li class="active"><a href="/boards">Home</a></li>
@@ -47,7 +47,7 @@
                 // This function is used to dynamically create a form and post it
                 // to the url '/boards/delete/:id'.
 
-                function deleteArticle(id) {
+                function deleteBoard(id) {
                     var form = document.createElement("form");
                     form.setAttribute("method", "POST");
                     form.setAttribute("action", "/boards/delete/"+id);
@@ -58,11 +58,11 @@
 
             <div class="page">
                 <div class="page-region-content">
-                    <div  id="article-grid" class="grid" style="padding-top: 15px;">
+                    <div  id="board-grid" class="grid" style="padding-top: 15px;">
 
-                        <!-- Everything inside "article-grid" will be deleted! -->
+                        <!-- Everything inside "board-grid" will be deleted! -->
 
-                        <div class="row" id="article-row">
+                        <div class="row" id="board-row">
                             <div class="span12">
                                 <div class="well">
                                     <a class="btn pull-right" href="#">Open</a>
@@ -72,19 +72,19 @@
                             </div>
                         </div>
 
-                        <div class="row" id="article-item">
+                        <div class="row" id="board-item">
                             <div class="span12">
                                 <div class="well">
                                     <h2></h2>
                                     <span></span>
                                 </div>
-                                <a href="/articles" class="btn">Close</a>
+                                <a href="/boards" class="btn">Close</a>
                                 <a id="edit" href="#" class="btn">Edit</a>
                                 <a id="delete" href="#" class="btn btn-danger">Delete</a>
                             </div>
                         </div>
 
-                        <div class="row" id="article-item-edit">
+                        <div class="row" id="board-item-edit">
                             <div class="span12">
                                 <form action="" method="POST">
                                     <div class="well">

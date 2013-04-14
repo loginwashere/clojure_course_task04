@@ -11,44 +11,44 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Fragments
 
-(def article-row (l/select main-html (l/id= "article-row")))
-(def article-item (l/select main-html (l/id= "article-item")))
-(def article-item-edit (l/select main-html (l/id= "article-item-edit")))
+(def board-row (l/select main-html (l/id= "board-row")))
+(def board-item (l/select main-html (l/id= "board-item")))
+(def board-item-edit (l/select main-html (l/id= "board-item-edit")))
 
 
-;; Used to show an article in the articles list
-;; Path: /articles/
-(l/defragment article-frag article-row  [{:keys [_id header content]}]
+;; Used to show an board in the boards list
+;; Path: /boards/
+(l/defragment board-frag board-row  [{:keys [_id header content]}]
   (l/element= :h2) (l/content header)
   (l/element= :span) (l/content content)
   (l/element= :a) (l/attr :href (str "/boards/" _id)))
 
-;; Shows article details
-;; Path: /article/:id
-(l/defragment article-item-frag article-item [{:keys [_id header content]}]
+;; Shows board details
+;; Path: /boards/:id
+(l/defragment board-item-frag board-item [{:keys [_id header content]}]
   (l/element= :h2) (l/content header)
   (l/element= :span) (l/content content)
   (l/id= "edit") (l/attr :href (str "/boards/edit/" _id))
   (l/id= "delete") (l/attr :onclick (str "deleteArticle(" _id ")"))
   (l/id= "delete") (l/attr :href (str "/boards/delete/" _id)))
 
-;; Shows a form for article editting
-;; Path: /article/edit/:id
-(l/defragment article-edit-item-frag article-item-edit [{:keys [_id header content]}]
+;; Shows a form for board editting
+;; Path: /boards/edit/:id
+(l/defragment board-edit-item-frag board-item-edit [{:keys [_id header content]}]
   (l/id= "header") (l/attr :value header)
   (l/element= :textarea) (l/content content)
   (l/id= "close") (l/attr :href (str "/boards/" _id))
   (l/element= :form) (l/attr :action (str "/boards/update/" _id)))
 
-;; Shows a from for article creating
-;; Path: /article/new
-(l/defragment article-new-item-frag article-item-edit []
+;; Shows a from for board creating
+;; Path: /boards/new
+(l/defragment board-new-item-frag board-item-edit []
   (l/id= "close") (l/attr :href "/boards")
   (l/element= :form) (l/attr :action (str "/boards/create")))
 
-;; Shows a from for article creating
-;; Path: /article/delete/:id
-(l/defragment article-delete-item-frag article-item-edit []
+;; Shows a from for board creating
+;; Path: /boards/delete/:id
+(l/defragment board-delete-item-frag board-item-edit []
   (l/id= "close") (l/attr :href "/boards")
   (l/element= :h2) (l/content "Are you sure?"))
 
@@ -59,36 +59,36 @@
 
 
 
-(defn show-article-list [article-list]
+(defn show-board-list [board-list]
   (l/document main-html
-              (l/id= "article-grid")
+              (l/id= "board-grid")
               (l/content
-               (for [article article-list]
-                 (article-frag article)))))
+               (for [board board-list]
+                 (board-frag board)))))
 
 
-(defn show-article [article]
+(defn show-board [board]
   (l/document main-html
-              (l/id= "article-grid")
+              (l/id= "board-grid")
               (l/content
-               (article-item-frag article))))
+                (board-item-frag board))))
 
 
-(defn edit-article [article]
+(defn edit-board [board]
   (l/document main-html
-              (l/id= "article-grid")
+              (l/id= "board-grid")
               (l/content
-               (article-edit-item-frag article))))
+                (board-edit-item-frag board))))
 
 
-(defn show-new-article []
+(defn show-new-board []
   (l/document main-html
-              (l/id= "article-grid")
+              (l/id= "board-grid")
               (l/content
-               (article-new-item-frag))))
+                (board-new-item-frag))))
 
-(defn delete-article []
+(defn delete-board []
   (l/document main-html
-              (l/id= "article-grid")
+              (l/id= "board-grid")
               (l/content
-               (article-delete-item-frag))))
+                (board-delete-item-frag))))

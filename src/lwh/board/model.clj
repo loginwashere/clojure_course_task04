@@ -4,20 +4,20 @@
   (:import [org.bson.types ObjectId]
            [com.mongodb DB WriteConcern]))
 
-(defn create-article [item]
+(defn create-board [item]
   (mc/insert (get-collection-name) item))
 
-(defn select-article []
+(defn select-board []
   (mc/find-maps (get-collection-name)))
 
-(defn find-article [id]
+(defn find-board [id]
   (mc/find-one-as-map (get-collection-name) {:_id (ObjectId. id)}))
 
-(defn update-article [item]
+(defn update-board [item]
   (mc/update
     (get-collection-name)
     {:_id (ObjectId. (:id item))}
     {:header (:header item) :content (:content item)}))
 
-(defn delete-article [id]
+(defn delete-board [id]
   (mc/remove (get-collection-name) {:_id (ObjectId. id)}))
