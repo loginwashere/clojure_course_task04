@@ -5,19 +5,21 @@
            [com.mongodb DB WriteConcern]))
 
 (defn create-board [item]
-  (mc/insert (get-collection-name) item))
+  (let [oid (ObjectId.)
+        doc {:header (:header item) :content (:content item)}]
+    (mc/insert (get-collection-name) (merge doc {:_id oid}))))
 
 (defn select-board []
   (mc/find-maps (get-collection-name)))
 
-(defn find-board [id]
-  (mc/find-one-as-map (get-collection-name) {:_id (ObjectId. id)}))
+(defn find-board [board-id]
+  (mc/find-one-as-map (get-collection-name) {:_id (ObjectId. board-id)}))
 
 (defn update-board [item]
   (mc/update
     (get-collection-name)
-    {:_id (ObjectId. (:id item))}
+    {:_id (ObjectId. (:board-id item))}
     {:header (:header item) :content (:content item)}))
 
-(defn delete-board [id]
-  (mc/remove (get-collection-name) {:_id (ObjectId. id)}))
+(defn delete-board [board-id]
+  (mc/remove (get-collection-name) {:_id (ObjectId. board-id)}))
