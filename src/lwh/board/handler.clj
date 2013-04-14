@@ -24,7 +24,7 @@
 (defn delete-article [id]
   (model/delete-article id)
   (view/delete-article)
-  (resp/redirect "/articles"))
+  (resp/redirect "/boards"))
 
 (defn update-article [id header content]
   (let [article {:id id, :header header, :content content}]
@@ -36,32 +36,32 @@
 
 (defn create-article [article]
   (model/create-article article)
-  (resp/redirect "/articles"))
+  (resp/redirect "/boards"))
 
 (defroutes app-routes
 
-  (GET "/" [] (resp/redirect "/articles"))
+  (GET "/" [] (resp/redirect "/boards"))
 
-  ;; Show articles list
-  (GET "/articles" [] (show-article-list))
+  ;; Show boards list
+  (GET "/boards" [] (show-article-list))
 
-  ;; Show form for a new article
-  (GET "/articles/new" [] (show-new-article))
+  ;; Show form for a new board
+  (GET "/boards/new" [] (show-new-article))
 
-  ;; Create new article
-  (POST "/articles/create" req (create-article (:params req)))
+  ;; Create new board
+  (POST "/boards/create" req (create-article (:params req)))
 
-  ;; Show article details
-  (GET "/articles/:id" [id] (show-article id))
+  ;; Show board details
+  (GET "/boards/:id" [id] (show-article id))
 
-  ;; Show form for editting article
-  (GET "/articles/edit/:id" [id] (edit-article id))
+  ;; Show form for editting board
+  (GET "/boards/edit/:id" [id] (edit-article id))
 
-  ;; Update article
-  (POST "/articles/update/:id" [id header content] (update-article id header content))
+  ;; Update board
+  (POST "/boards/update/:id" [id header content] (update-article id header content))
 
-  ;; Delete article
-  (POST "/articles/delete/:id" [id] (delete-article id))
+  ;; Delete board
+  (POST "/boards/delete/:id" [id] (delete-article id))
 
   (route/resources "/")
   (route/not-found "Not Found"))

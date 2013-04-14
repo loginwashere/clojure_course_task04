@@ -19,7 +19,7 @@
 
         <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
 
-        <title>My first Clojure blog</title>
+        <title>Imageboard</title>
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -28,9 +28,9 @@
                     <a class="brand" href="#">Imageboard</a>
                     <div class="nav-collapse collapse">
                       <ul class="nav">
-                          <li class="active"><a href="/articles">Home</a></li>
-                          <li><a href="/articles/new">Create article</a></li>
-                          <li><a href="#contact">About</a></li>
+                          <li class="active"><a href="/boards">Home</a></li>
+                          <li><a href="/boards/new">Create board</a></li>
+                          <li><a href="#about">About</a></li>
                           <li><a href="#contact">Contact</a></li>
                       </ul>
                     </div><!--/.nav-collapse -->
@@ -45,12 +45,12 @@
 
             <script type="text/javascript">
                 // This function is used to dynamically create a form and post it
-                // to the url '/article/delete/:id'.
+                // to the url '/boards/delete/:id'.
 
                 function deleteArticle(id) {
                     var form = document.createElement("form");
                     form.setAttribute("method", "POST");
-                    form.setAttribute("action", "/articles/delete/"+id);
+                    form.setAttribute("action", "/boards/delete/"+id);
                     document.body.appendChild(form);
                     form.submit();
                 }

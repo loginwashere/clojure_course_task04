@@ -21,35 +21,35 @@
 (l/defragment article-frag article-row  [{:keys [_id header content]}]
   (l/element= :h2) (l/content header)
   (l/element= :span) (l/content content)
-  (l/element= :a) (l/attr :href (str "/articles/" _id)))
+  (l/element= :a) (l/attr :href (str "/boards/" _id)))
 
 ;; Shows article details
 ;; Path: /article/:id
 (l/defragment article-item-frag article-item [{:keys [_id header content]}]
   (l/element= :h2) (l/content header)
   (l/element= :span) (l/content content)
-  (l/id= "edit") (l/attr :href (str "/articles/edit/" _id))
+  (l/id= "edit") (l/attr :href (str "/boards/edit/" _id))
   (l/id= "delete") (l/attr :onclick (str "deleteArticle(" _id ")"))
-  (l/id= "delete") (l/attr :href (str "/articles/delete/" _id)))
+  (l/id= "delete") (l/attr :href (str "/boards/delete/" _id)))
 
 ;; Shows a form for article editting
 ;; Path: /article/edit/:id
 (l/defragment article-edit-item-frag article-item-edit [{:keys [_id header content]}]
   (l/id= "header") (l/attr :value header)
   (l/element= :textarea) (l/content content)
-  (l/id= "close") (l/attr :href (str "/articles/" _id))
-  (l/element= :form) (l/attr :action (str "/articles/update/" _id)))
+  (l/id= "close") (l/attr :href (str "/boards/" _id))
+  (l/element= :form) (l/attr :action (str "/boards/update/" _id)))
 
 ;; Shows a from for article creating
 ;; Path: /article/new
 (l/defragment article-new-item-frag article-item-edit []
-  (l/id= "close") (l/attr :href "/articles")
-  (l/element= :form) (l/attr :action (str "/articles/create")))
+  (l/id= "close") (l/attr :href "/boards")
+  (l/element= :form) (l/attr :action (str "/boards/create")))
 
 ;; Shows a from for article creating
 ;; Path: /article/delete/:id
 (l/defragment article-delete-item-frag article-item-edit []
-  (l/id= "close") (l/attr :href "/articles")
+  (l/id= "close") (l/attr :href "/boards")
   (l/element= :h2) (l/content "Are you sure?"))
 
 

@@ -1,6 +1,6 @@
 (ns lwh.board.model
   (:use [lwh.services.db]
-        [monger.collection :only [insert find-maps find-one-as-map update remove] :as mc])
+        [monger.collection :only [insert find-maps find-one-as-map update] :as mc])
   (:import [org.bson.types ObjectId]
            [com.mongodb DB WriteConcern]))
 
@@ -14,7 +14,10 @@
   (mc/find-one-as-map (get-collection-name) {:_id (ObjectId. id)}))
 
 (defn update-article [item]
-  (mc/update (get-collection-name) {:_id (ObjectId. (:id item))} {:header (:header item) :content (:content item)}))
+  (mc/update
+    (get-collection-name)
+    {:_id (ObjectId. (:id item))}
+    {:header (:header item) :content (:content item)}))
 
 (defn delete-article [id]
   (mc/remove (get-collection-name) {:_id (ObjectId. id)}))
