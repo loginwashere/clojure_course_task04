@@ -8,7 +8,6 @@
             [noir.session :as session]))
 
 ;; Boards controllers
-
 (defn show-board-list []
   (view/show-board-list (model/select-board)))
 
@@ -38,19 +37,18 @@
   (resp/redirect "/boards"))
 
 ;; Threads cntrollers
-
 (defn show-thread-list [board-id]
-  (view/show-board-list (model/select-board)))
+  (view/show-board-list (model/select-thread board-id)))
 
 (defn show-thread [board-id thread-id]
-  (view/show-board (model/find-board board-id)))
+  (view/show-board (model/find-thread board-id thread-id)))
 
 (defn edit-thread [board-id thread-id]
-  (view/edit-board (model/find-board board-id)))
+  (view/edit-board (model/find-thread board-id thread-id)))
 
 (defn delete-thread [board-id thread-id]
-  (model/delete-board board-id)
-  (view/delete-board)
+  (model/delete-thread board-id)
+  (view/delete-thread)
   (resp/redirect (str "/boards/" board-id)))
 
 (defn update-thread [board-id thread-id header content]
@@ -58,18 +56,17 @@
                 :thread-id thread-id
                 :header header,
                 :content content}]
-    (model/update-board thread)
-    (view/show-board thread)))
+    (model/update-thread thread)
+    (view/show-thread thread)))
 
 (defn show-new-thread [board-id]
-  (view/show-new-board))
+  (view/show-new-thread))
 
 (defn create-thread [board-id thread]
-  (model/create-board thread)
+  (model/create-thread board-id thread)
   (resp/redirect (str "/boards/" board-id)))
 
 ;; Posts controllers
-
 (defn show-post-list [board-id thread-id]
   (view/show-board-list (model/select-board)))
 
@@ -101,7 +98,6 @@
   (resp/redirect (str "/boards/" board-id "/thread/" thread-id)))
 
 ;; Routes
-
 (defroutes app-routes
 
   (GET "/" [] (resp/redirect "/boards"))

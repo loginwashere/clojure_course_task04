@@ -58,7 +58,7 @@
 
             <div class="page">
                 <div class="page-region-content">
-                    <div  id="board-grid" class="grid" style="padding-top: 15px;">
+                    <div id="board-grid" class="grid">
 
                         <!-- Everything inside "board-grid" will be deleted! -->
 
@@ -81,6 +81,8 @@
                                 <a href="/boards" class="btn">Close</a>
                                 <a id="edit" href="#" class="btn">Edit</a>
                                 <a id="delete" href="#" class="btn btn-danger">Delete</a>
+                                <a id="create-thread" href="#" class="btn">Create thread</a>
+                                <div id="thread-grid" class="grid"></div>
                             </div>
                         </div>
 
@@ -94,6 +96,16 @@
                                     <a id="close" href="#" class="btn">Close</a>
                                     <input type="submit" class="btn" value="Save"/>
                                 </form>
+                            </div>
+                        </div>
+
+                        <div class="row" id="thread-row">
+                            <div class="span12">
+                                <div class="well">
+                                    <a class="btn pull-right" href="#">Open</a>
+                                    <h2></h2>
+                                    <span></span>
+                                </div>
                             </div>
                         </div>
                     </div>
