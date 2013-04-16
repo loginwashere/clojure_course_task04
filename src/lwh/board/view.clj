@@ -14,6 +14,7 @@
 (def board-row (l/select main-html (l/id= "board-row")))
 (def board-item (l/select main-html (l/id= "board-item")))
 (def board-item-edit (l/select main-html (l/id= "board-item-edit")))
+(def thread-item-edit (l/select main-html (l/id= "thread-item-edit")))
 
 (def thread-row (l/select main-html (l/id= "thread-row")))
 
@@ -57,13 +58,17 @@
   (l/id= "close") (l/attr :href "/boards")
   (l/element= :form) (l/attr :action (str "/boards/create")))
 
+(l/defragment thread-new-form thread-item-edit [board-id]
+  (l/id= "close-thread-create") (l/attr :href (str "/boards/" board-id))
+  (l/element= :form) (l/attr :action (str "/boards/" board-id "/threads/create")))
+
 (l/defragment thread-new-item-frag board-item [{:keys [_id header content threads]}]
   (l/element= :h2) (l/content header)
   (l/element= :span) (l/content content)
   (l/id= "edit") (l/attr :href (str "/boards/edit/" _id))
   (l/id= "delete") (l/attr :onclick (str "deleteArticle(" _id ")"))
   (l/id= "delete") (l/attr :href (str "/boards/delete/" _id))
-  (l/id= "create-thread-container") (l/content board-item-edit)
+  (l/id= "create-thread-container") (l/content (thread-new-form _id))
   (l/id= "thread-grid")
     (l/content
       (for [thread threads]

@@ -27,9 +27,9 @@
 
 ;; Threads
 (defn create-thread [board-id item]
-  (let [oid (ObjectId.)
+  (let [board-id (ObjectId. board-id)
         doc {:header (:header item) :content (:content item)}]
-    (mc/insert (get-collection-name) (merge doc {:_id oid}))))
+    (mc/update (get-collection-name) {:_id board-id} {"$addToSet" {:threads doc}})))
 
 (defn select-thread [board-id]
   (mc/find-maps (get-collection-name)))

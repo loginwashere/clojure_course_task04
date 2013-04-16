@@ -144,7 +144,7 @@
   (POST
     "/boards/:board-id/threads/create"
     req
-    (create-thread (:params req)))
+    (create-thread (:board-id (:params req)) (:params req)))
   (GET
     "/boards/:board-id/threads/:thread-id"
     [board-id]
