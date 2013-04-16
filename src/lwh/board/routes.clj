@@ -60,7 +60,7 @@
     (view/show-thread thread)))
 
 (defn show-new-thread [board-id]
-  (view/show-new-thread))
+  (view/show-new-thread (model/find-board board-id)))
 
 (defn create-thread [board-id thread]
   (model/create-thread board-id thread)
@@ -139,8 +139,8 @@
     (show-thread-list))
   (GET
     "/boards/:board-id/threads/new"
-    []
-    (show-new-thread))
+    [board-id]
+    (show-new-thread board-id))
   (POST
     "/boards/:board-id/threads/create"
     req

@@ -37,6 +37,7 @@
   (l/id= "edit") (l/attr :href (str "/boards/edit/" _id))
   (l/id= "delete") (l/attr :onclick (str "deleteArticle(" _id ")"))
   (l/id= "delete") (l/attr :href (str "/boards/delete/" _id))
+  (l/id= "create-thread") (l/attr :href (str "/boards/" _id "/threads/new"))
   (l/id= "thread-grid")
     (l/content
       (for [thread threads]
@@ -56,9 +57,17 @@
   (l/id= "close") (l/attr :href "/boards")
   (l/element= :form) (l/attr :action (str "/boards/create")))
 
-(l/defragment thread-new-item-frag board-item-edit []
-  (l/id= "close") (l/attr :href "/boards")
-  (l/element= :form) (l/attr :action (str "/boards/create")))
+(l/defragment thread-new-item-frag board-item [{:keys [_id header content threads]}]
+  (l/element= :h2) (l/content header)
+  (l/element= :span) (l/content content)
+  (l/id= "edit") (l/attr :href (str "/boards/edit/" _id))
+  (l/id= "delete") (l/attr :onclick (str "deleteArticle(" _id ")"))
+  (l/id= "delete") (l/attr :href (str "/boards/delete/" _id))
+  (l/id= "create-thread-container") (l/content board-item-edit)
+  (l/id= "thread-grid")
+    (l/content
+      (for [thread threads]
+        (thread-frag thread))))
 
 ;; Shows a from for board creating
 ;; Path: /boards/delete/:id
@@ -96,11 +105,11 @@
               (l/content
                 (board-new-item-frag))))
 
-(defn show-new-thread []
+(defn show-new-thread [board]
   (l/document main-html
               (l/id= "board-grid")
               (l/content
-                (thread-new-item-frag))))
+                (thread-new-item-frag board))))
 
 (defn delete-board []
   (l/document main-html
@@ -114,12 +123,6 @@
               (l/id= "board-grid")
               (l/content
                 (board-item-frag board))))
-
-(defn show-new-thread []
-  (l/document main-html
-              (l/id= "board-grid")
-              (l/content
-                (board-new-item-frag))))
 
 (defn delete-thread []
   (l/document main-html
